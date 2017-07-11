@@ -1,4 +1,4 @@
-Ansible Foreman [![Build Status](https://travis-ci.org/wilmardo/ansible-letsencrypt.svg?branch=master)](https://travis-ci.org/wilmardo/ansible-letsencrypt)
+Ansible Foreman [![Build Status](https://travis-ci.org/wilmardo/ansible-role-foreman.svg?branch=master)](https://travis-ci.org/wilmardo/ansible-role-foreman)
 =========
 
 Ansible role to enable Ansible management in Foreman with the foreman_ansible plugin:
