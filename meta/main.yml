@@ -15,26 +15,10 @@ galaxy_info:
     versions:
       - all
 
-  - name: Ubuntu
-    versions:
-    - precise
-    - quantal
-    - raring
-    - saucy
-    - trusty
-    - utopic
-    - vivid
-    - wily
-    - xenial
-
-  - name: Debian
-    versions:
-      - 7
-      - 8
-
   galaxy_tags:
-    - letsencrypt
-    - certbot
-    - ssl
+    - foreman
+    - ansible
+    - foreman_ansible
 
-dependencies: []
+dependencies:
+  - kostyrev.foreman

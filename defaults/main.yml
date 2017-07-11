@@ -6,3 +6,12 @@ foreman_packages:
 foreman_ansible_cfg_location: /etc/ansible/ansible.cfg
 foreman_inventory_path: /etc/ansible/hosts
 foreman_roles_path: /etc/ansible/roles
+foreman_system_variables:
+  - var: FOREMAN_URL
+    value: http://localhost/            #the URL of your Foreman installation
+  - var: FOREMAN_SSL_CERT
+    value: /etc/foreman/client_cert.pem #the public key when using SSL client certificates
+  - var: FOREMAN_SSL_KEY
+    value: /etc/foreman/client_key.pem #The private key when using SSL client certificates
+  - var: FOREMAN_SSL_VERIFY
+    value: True                         #wether to verify SSL certificates. Use False to disable certificate checks. You can also set it to CA bundle

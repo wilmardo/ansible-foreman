@@ -1,7 +1,8 @@
-Letsencrypt [![Build Status](https://travis-ci.org/wilmardo/ansible-letsencrypt.svg?branch=master)](https://travis-ci.org/wilmardo/ansible-letsencrypt)
+Ansible Foreman [![Build Status](https://travis-ci.org/wilmardo/ansible-letsencrypt.svg?branch=master)](https://travis-ci.org/wilmardo/ansible-letsencrypt)
 =========
 
-Ansible role to create letsencrypt certificates
+Ansible role to enable Ansible management in Foreman with the foreman_ansible plugin:
+https://theforeman.org/plugins/foreman_ansible/1.x/index.html
 
 Requirements
 ------------
@@ -9,69 +10,40 @@ None
 
 Role Variables
 --------------
-There are several role variables, they can be set in the hosts_vars/group_vars:
+There are several role variables, they can be set in the hosts_vars or group_vars:
 
-### Variables for certificate requests
+### Variables Ansible foreman
 
-| Variable name             | Default value         | Description         |
-| ------------------------- | --------------------- | ------------------- |
-| letsencrypt_certificates  | undefined             | Dict contain domains to generate ssl certificates for, see the example playbook for the structure of the dict
-| letsencrypt_email         | undefined             | Email to use for certificate requests, is also used for expiration notifications
-| letsencrypt_webserver     | apache                | The webserver in use on the server, if none leave empty string
-| letsencrypt_autoinstall   | yes                   | If true Certbot will get a certificate for you and edit your configuration automatically to serve it
-| letsencrypt_certonly      | no                    | If true Certbot will get a certificate for you but no edit to your configuration
-| letsencrypt_standalone    | no                    | The ACME request is done with a temporary webserver
-
-### Variables for certbot
-
-| Variable name                 | Default value     | Description         |
-| ----------------------------- | ----------------- | ------------------- |
-| letsencrypt_rsa_key_size      | 2048              | Letsencrypt RSA keysize, recommended to change to 4096 
-| letsencrypt_extra_conf        | ""                | Could be used to append to cli.ini for option see certbot help
-
-### Variables for letsencrypt cron job
-
-| Variable name                    | Default value          | Description         |
-| -------------------------------- | -----------------------| ------------------- |
-| letsencrypt_auto_renew           | yes                    | Enables creation of a cron job to renew certificates when needed (certbot renew)
-| letsencrypt_auto_renew_user      | {{ ansible_user }}     | User to run cron job with
-| letsencrypt_auto_renew_hour      | random                 | Hour to set cron job to, is generated randomly and leave it preferably to reduce serverload at Lets Ecnrypt 
-| letsencrypt_auto_renew_minute    | random                 | Minute to set cron job to, is generated randomly and leave it preferably to reduce serverload at Lets Ecnrypt
+| Variable name                 | Default value                                     | Description         |
+| -------------------------     | ---------------------                             | ------------------- |
+| foreman_packages              | { python-request, tfm-rubygem-foreman_ansible }   | Default packages to install for Ansible Foreman to work
+| foreman_ansible_cfg_location  | /etc/ansible/ansible.cfg                          | Location of the Ansible to edit, Ansible defaults to /etc/ansible/ansible.cfg [(docs)](http://docs.ansible.com/ansible/galaxy.html#roles-path) so best to leave it
+| foreman_inventory_path        | /etc/ansible/hosts                                | The inventory_path [(docs)](http://docs.ansible.com/ansible/galaxy.html#inventory-path) to set in the ansible.cfg
+| foreman_roles_path            | /etc/ansible/roles                                | The roles_path [(docs)](http://docs.ansible.com/ansible/galaxy.html#roles-path) to set in the ansible.cfg, multiple can be defined separated by a :
+| foreman_system_variables      | Foreman defaults                                  | See [defaults/main.yml](defaults/main.yml) for the default values and an explanation. These values work with the defaults of the kostyrev.foreman role
 
 Dependencies
 ------------
-None
+The foreman role of kostyrev:
+https://galaxy.ansible.com/kostyrevaa/foreman/
 
 Example Playbooks
 ----------------
 
-### Example Playbook with Apache and autoinstall
+### Example Playbook with defaults
 The following playbook gives an example when using Apache and the autoinstall.
 
     - hosts: webservers    
       roles:
-         - { role: wilmardo.letsencrypt,    letsencrypt_email: example@exaple.com,
-                                            letsencrypt_certificates: [{ example.com: {domain: example.com} }]
+         - { role: wilmardo.foreman }
 
-### Example Playbook with Nginx and webroot
+### Example Playbook with diffrent inventory path and multiple role paths
 The following playbook gives an example when using Nginx with a webroot and a 4096 rsa_key_size
 
     - hosts: webservers    
       roles:
-         - { role: wilmardo.letsencrypt,    letsencrypt_email: example@example.com,
-                                            letsencrypt_certificates: [{ example.com: {domain: example.com, webroot:/home/apache/www/example.com}, example1.com: {domain: example1.com, , webroot:/home/apache/www/example1.com/} }]
-                                            letsencrypt_rsa_key_size: 4096
-                                            
-### Example Playbook without webserver, verification through standalone
-The following playbook gives an example when using no webserver (mailserver for example)
-
-    - hosts: mailservers    
-      roles:
-         - { role: wilmardo.letsencrypt,    letsencrypt_email: example@example.com,
-                                            letsencrypt_certificates: [{ example.com: {domain: mail.example.com }]
-                                            letsencrypt_webserver: "",
-                                            letsencrypt_standalone: yes
-                                            
+         - { role: wilmardo.foreman,    foreman_inventory_path: /home/user/ansible-project/hosts,
+                                        foreman_roles_path: /home/user/ansible-project/roles:/home/user/ansible-project/galaxy-roles
 License
 -------
 
