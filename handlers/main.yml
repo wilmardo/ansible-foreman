@@ -1,2 +1,5 @@
 ---
-# handlers file for foreman
+- name: foreman restart
+  service:
+    name: foreman
+    state: restarted

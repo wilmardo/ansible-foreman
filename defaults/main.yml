@@ -1,2 +1,7 @@
 ---
-# defaults file for foreman
+foreman_packages:
+  - tfm-rubygem-foreman_ansible
+
+foreman_ansible_cfg_location: /etc/ansible/ansible.cfg
+foreman_inventory_path: /etc/ansible/hosts
+foreman_roles_path: /etc/ansible/roles
