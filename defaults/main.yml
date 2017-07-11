@@ -1,5 +1,6 @@
 ---
 foreman_packages:
+  - python-requests
   - tfm-rubygem-foreman_ansible
 
 foreman_ansible_cfg_location: /etc/ansible/ansible.cfg
