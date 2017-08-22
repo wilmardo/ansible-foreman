@@ -21,4 +21,4 @@ galaxy_info:
     - foreman_ansible
 
   dependencies:
-    - kostyrev.foreman
+    - kostyrevaa.foreman
