@@ -2,4 +2,4 @@
 - hosts: localhost
   connection: local
   roles:
-    - role: lae.travis-lxc
+    - { name: lae.travis-lxc }

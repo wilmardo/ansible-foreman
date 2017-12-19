@@ -1,0 +1,20 @@
+---
+- block:
+    - name: Install prerequisites with apt
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      with_items: "{{ taskd_prerequisites }}"
+
+  when: ansible_os_family == "Debian"
+
+- block:
+    - name: Install prerequisites with yum
+      yum:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      with_items: "{{ taskd_prerequisites }}"
+
+  when: ansible_os_family == "RedHat"

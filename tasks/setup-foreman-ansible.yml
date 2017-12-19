@@ -1,0 +1,27 @@
+---
+- name: Install Foreman Ansible with apt
+  apt:
+    name: tfm-rubygem-foreman_ansible
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install Foreman Ansible with yum
+  yum:
+    name: tfm-rubygem-foreman_ansible
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Setup ansible.cfg
+  template:
+    src: ansible.cfg.jinja2
+    dest: "{{ foreman_ansible_cfg_location }}"
+
+- name: Set permanent variables
+  lineinfile:
+    dest: "/etc/profile"
+    line: "export {{item.var}}={{ item.value }}"
+    regexp: "^export {{ item.var }}"
+    state: present
+    insertafter: eof
+  with_items: "{{ foreman_ansible_system_variables }}"
+s

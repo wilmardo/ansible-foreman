@@ -1,2 +1,8 @@
 ---
-- include: setup.yml
+- include: load-variables.ym
+
+- include: setup-epel.yml
+
+- include: setup-prerequisite.yml
+
+- include: setup-foreman-ansible.yml

@@ -1,11 +1,8 @@
 ---
-foreman_packages:
-  - python-requests
-  - tfm-rubygem-foreman_ansible
-
+# Location of the global ansible.cfg
 foreman_ansible_cfg_location: /etc/ansible/ansible.cfg
-foreman_inventory_path: /etc/ansible/hosts
-foreman_roles_path: /etc/ansible/roles
+
+# Foreman system variables needed for the callback
 foreman_system_variables:
   - var: FOREMAN_URL
     value: http://localhost/            #the URL of your Foreman installation
