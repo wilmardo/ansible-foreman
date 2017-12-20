@@ -3,7 +3,7 @@
 foreman_ansible_cfg_location: /etc/ansible/ansible.cfg
 
 # Foreman system variables needed for the callback
-foreman_system_variables:
+foreman_ansible_system_variables:
   - var: FOREMAN_URL
     value: http://localhost/            #the URL of your Foreman installation
   - var: FOREMAN_SSL_VERIFY
