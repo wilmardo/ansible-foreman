@@ -4,12 +4,14 @@
     name: ruby-foreman-ansible
     state: present
   when: ansible_os_family == "Debian"
+  notify: foreman restart
 
 - name: Install Foreman Ansible with yum
   yum:
     name: tfm-rubygem-foreman_ansible
     state: present
   when: ansible_os_family == "RedHat"
+  notify: foreman restart
 
 - name: Setup ansible.cfg
   lineinfile:
@@ -17,8 +19,8 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items:
-    - { regexp: '#callback_plugins', line: 'callback_plugins   = /usr/share/ansible/plugins/callback' }
     - { regexp: 'bin_ansible_callbacks', line: 'bin_ansible_callbacks = True' }
+    - { regexp: '#callback_whitelist', line: 'callback_whitelist = foreman' }
 
 - name: Set permanent variables
   lineinfile:
