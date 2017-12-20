@@ -1,5 +1,5 @@
 ---
-- include: load-variables.ym
+- include: load-variables.yml
 
 - include: setup-epel.yml
 

@@ -5,7 +5,7 @@
         name: "{{ item }}"
         state: present
         update_cache: yes
-      with_items: "{{ taskd_prerequisites }}"
+      with_items: "{{ foreman_ansible_prerequisites }}"
 
   when: ansible_os_family == "Debian"
 
@@ -15,6 +15,6 @@
         name: "{{ item }}"
         state: present
         update_cache: yes
-      with_items: "{{ taskd_prerequisites }}"
+      with_items: "{{ foreman_ansible_prerequisites }}"
 
   when: ansible_os_family == "RedHat"

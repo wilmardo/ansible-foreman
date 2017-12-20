@@ -21,4 +21,4 @@ galaxy_info:
     - foreman_ansible
 
   dependencies:
-    - kostyrevaa.foreman
+    - sean797.foreman_installer
