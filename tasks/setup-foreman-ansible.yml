@@ -12,8 +12,8 @@
   when: ansible_os_family == "RedHat"
 
 - name: Setup ansible.cfg
-  linefile:
-    dest: ansible.cfg.jinja2
+  lineinfile:
+    dest: "{{ foreman_ansible_cfg_location }}"
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items:
